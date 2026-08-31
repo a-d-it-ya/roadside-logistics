@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arbitrage Simulator — RoadSide Logistics</title>
+  <meta name="description" content="Calculate your enterprise logistics cost reduction with the RoadSide Corridor Capacity Arbitrage Simulator." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            void: '#030712',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .bento-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(3, 7, 18, 0.9) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    input[type=range] {
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 9999px;
+      background: #1f2937;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #10b981;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+      transition: transform 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body class="bg-void text-slate-100 font-sans selection:bg-emerald-500 selection:text-void relative">
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-void/85 backdrop-blur-xl border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.3)] group-hover:scale-105 transition-transform">
+          <i data-lucide="truck" class="w-4 h-4 text-slate-950 stroke-[2.5]"></i>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-display font-bold tracking-wider text-base text-white uppercase whitespace-nowrap">
+            ROADSIDE <span class="text-emerald-400">LOGISTICS</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/[0.08] text-xs font-mono font-medium text-slate-300 whitespace-nowrap">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">Network OS</a>
+        <a href="how-it-works.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">How It Works</a>
+        <a href="vector-engine.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">Vector Engine</a>
+        <a href="for-businesses.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">For Businesses</a>
+        <a href="arbitrage.html" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Arbitrage Simulator</a>
+        <a href="developers.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">API Docs</a>
+      </nav>
+
+      <!-- Right CTAs -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap font-mono">
+        <a
+          href="https://app-roadside-logistics.vercel.app/"
+          target="_blank"
+          class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 active:scale-95 transition flex items-center gap-1.5 uppercase tracking-wider"
+        >
+          <span>Explore Network</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HEADER -->
+  <section class="py-20 bg-gradient-to-b from-void via-slate-950/60 to-void border-b border-white/[0.08]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-xs font-mono text-emerald-300">
+        <span>INTERACTIVE ROI ENGINE</span>
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-extrabold font-display text-white tracking-tight leading-tight">
+        Corridor Rate Arbitrage <br />
+        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          Interactive Simulator
+        </span>
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto font-sans leading-relaxed">
+        Simulate your cargo weight, transit distance, and selected corridor node to uncover exact enterprise cost reductions.
+      </p>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE SIMULATOR SECTION -->
+  <section class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="bento-card p-8 sm:p-10 rounded-3xl border border-emerald-500/30 space-y-8 shadow-2xl">
+      
+      <!-- Controls -->
+      <div class="space-y-6">
+        
+        <!-- Weight Slider -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-sm">
+            <span class="text-slate-300 font-semibold">Cargo Payload:</span>
+            <span class="text-emerald-400 font-bold" id="weightDisplay">750 kg</span>
+          </div>
+          <input 
+            type="range" 
+            id="weightSlider" 
+            min="100" 
+            max="5000" 
+            step="50" 
+            value="750" 
+            class="w-full"
+            oninput="updateCalculator()"
+          />
+          <div class="flex justify-between text-[10px] font-mono text-slate-500">
+            <span>100 kg (Small Parcel)</span>
+            <span>2,500 kg (Mid-Cargo)</span>
+            <span>5,000 kg (Half Truckload)</span>
+          </div>
+        </div>
+
+        <!-- Distance Slider -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-sm">
+            <span class="text-slate-300 font-semibold">Corridor Distance:</span>
+            <span class="text-cyan-400 font-bold" id="distanceDisplay">650 km</span>
+          </div>
+          <input 
+            type="range" 
+            id="distanceSlider" 
+            min="100" 
+            max="2500" 
+            step="50" 
+            value="650" 
+            class="w-full"
+            oninput="updateCalculator()"
+          />
+          <div class="flex justify-between text-[10px] font-mono text-slate-500">
+            <span>100 km (Intra-State)</span>
+            <span>1,200 km</span>
+            <span>2,500 km (National Trunk)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Calculation Breakdown -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 font-mono">
+        <div class="p-5 rounded-2xl bg-slate-950 border border-red-500/20 space-y-1">
+          <span class="text-[10px] text-slate-500 uppercase block">TRADITIONAL DEDICATED FULL TRUCK</span>
+          <div class="text-2xl sm:text-3xl font-extrabold text-red-400 font-display" id="traditionalCost">₹16,000</div>
+          <p class="text-[11px] text-slate-500 font-sans">Paying for 100% capacity regardless of payload.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 space-y-1">
+          <span class="text-[10px] text-emerald-400 uppercase block">ROADSIDE CORRIDOR CAPACITY</span>
+          <div class="text-2xl sm:text-3xl font-extrabold text-emerald-300 font-display" id="roadsideCost">₹5,044</div>
+          <p class="text-[11px] text-emerald-300/80 font-sans">Pay strictly for payload weight & distance.</p>
+        </div>
+      </div>
+
+      <!-- Total Monthly Savings Pill -->
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-950/80 to-slate-950 border border-emerald-500/50 text-center space-y-2 font-mono">
+        <span class="text-xs text-slate-400 uppercase tracking-wider">Projected Annual Enterprise Logistics Savings</span>
+        <div class="text-3xl sm:text-5xl font-black text-emerald-400 font-display" id="totalSavings">₹15,77,664 / yr</div>
+        <span class="text-xs text-slate-300 font-sans block" id="percentSavings">68% Reduction in Logistics Spend</span>
+      </div>
+
+      <!-- Action Button -->
+      <div class="text-center pt-2">
+        <a
+          href="https://app-roadside-logistics.vercel.app/"
+          target="_blank"
+          class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs uppercase font-mono tracking-wider shadow-lg shadow-emerald-500/20 active:scale-95 transition"
+        >
+          <span>Lock In Shared Capacity Rates</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-void border-t border-white/[0.06] py-12 text-xs font-mono text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+          <i data-lucide="truck" class="w-4 h-4"></i>
+        </div>
+        <span class="font-bold text-slate-200">ROADSIDE LOGISTICS</span>
+      </div>
+      <div class="flex flex-wrap gap-6 text-slate-400">
+        <a href="index.html" class="hover:text-emerald-400 transition">Network OS</a>
+        <a href="how-it-works.html" class="hover:text-emerald-400 transition">How It Works</a>
+        <a href="vector-engine.html" class="hover:text-emerald-400 transition">Vector Engine</a>
+        <a href="for-businesses.html" class="hover:text-emerald-400 transition">For Businesses</a>
+        <a href="arbitrage.html" class="hover:text-emerald-400 transition">Arbitrage</a>
+        <a href="developers.html" class="hover:text-emerald-400 transition">API Docs</a>
+      </div>
+      <div class="text-slate-600">© 2026 RoadSide Logistics.</div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    function updateCalculator() {
+      const weight = parseInt(document.getElementById('weightSlider').value);
+      const distance = parseInt(document.getElementById('distanceSlider').value);
+
+      document.getElementById('weightDisplay').innerText = weight.toLocaleString() + ' kg';
+      document.getElementById('distanceDisplay').innerText = distance.toLocaleString() + ' km';
+
+      const dedicatedCost = Math.round(3000 + (distance * 20));
+      const sharedCost = Math.round(900 + ((weight / 1000) * distance * 8.5));
+
+      const savingsTrip = Math.max(0, dedicatedCost - sharedCost);
+      const annualSavings = savingsTrip * 144; // 12 trips/month * 12
+      const percent = Math.round((savingsTrip / dedicatedCost) * 100);
+
+      document.getElementById('traditionalCost').innerText = '₹' + dedicatedCost.toLocaleString();
+      document.getElementById('roadsideCost').innerText = '₹' + sharedCost.toLocaleString();
+      document.getElementById('totalSavings').innerText = '₹' + annualSavings.toLocaleString() + ' / yr';
+      document.getElementById('percentSavings').innerText = percent + '% Reduction in Logistics Spend';
+    }
+  </script>
+</body>
+</html>

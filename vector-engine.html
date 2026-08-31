@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vector Engine — RoadSide Logistics</title>
+  <meta name="description" content="The mathematical route-matching and vector dot-product engine behind RoadSide Logistics." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            void: '#030712',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .bento-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(3, 7, 18, 0.9) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-void text-slate-100 font-sans selection:bg-emerald-500 selection:text-void relative">
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-void/85 backdrop-blur-xl border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.3)] group-hover:scale-105 transition-transform">
+          <i data-lucide="truck" class="w-4 h-4 text-slate-950 stroke-[2.5]"></i>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-display font-bold tracking-wider text-base text-white uppercase whitespace-nowrap">
+            ROADSIDE <span class="text-emerald-400">LOGISTICS</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/[0.08] text-xs font-mono font-medium text-slate-300 whitespace-nowrap">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">Network OS</a>
+        <a href="how-it-works.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">How It Works</a>
+        <a href="vector-engine.html" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Vector Engine</a>
+        <a href="for-businesses.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">For Businesses</a>
+        <a href="arbitrage.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">Arbitrage Simulator</a>
+        <a href="developers.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">API Docs</a>
+      </nav>
+
+      <!-- Right CTAs -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap font-mono">
+        <a
+          href="https://app-roadside-logistics.vercel.app/"
+          target="_blank"
+          class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 active:scale-95 transition flex items-center gap-1.5 uppercase tracking-wider"
+        >
+          <span>Explore Network</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HEADER -->
+  <section class="py-20 bg-gradient-to-b from-void via-slate-950/60 to-void border-b border-white/[0.08]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-xs font-mono text-emerald-300">
+        <span>MATHEMATICAL FOUNDATION</span>
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-extrabold font-display text-white tracking-tight leading-tight">
+        The Vector Engine: <br />
+        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          D⃗ · H⃗ ≥ 0 Geometry
+        </span>
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto font-sans leading-relaxed">
+        Why simple radial distance fails in logistics, and how vector mathematics guarantees continuous forward movement without backward detours.
+      </p>
+    </div>
+  </section>
+
+  <!-- MATHEMATICAL BREAKDOWN -->
+  <section class="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    
+    <!-- Formulation Card -->
+    <div class="bento-card p-8 rounded-3xl space-y-6">
+      <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
+        <h2 class="text-2xl font-bold font-display text-white">The Vector Dot Product Equation</h2>
+        <span class="font-mono text-xs px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+          ALGORITHM v2.4
+        </span>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/90 border border-emerald-500/30 text-center space-y-3 font-mono">
+        <div class="text-2xl sm:text-4xl font-extrabold text-emerald-400 font-display">
+          Vector Angle Score = cos(θ) = (D⃗ · H⃗) / (||D⃗|| · ||H⃗||)
+        </div>
+        <p class="text-xs text-slate-300 max-w-xl mx-auto font-sans">
+          Where <strong>D⃗</strong> represents the truck’s destination vector, and <strong>H⃗</strong> represents the vector from the truck’s current GPS coordinates to the forward pickup hub.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 font-mono text-xs">
+        <div class="p-5 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-3">
+          <div class="text-red-400 font-bold text-sm">❌ cos(θ) &lt; 0 (Backtracking Rejection)</div>
+          <p class="text-slate-400 font-sans text-xs leading-relaxed">
+            When the dot product is negative, the hub lies behind the truck’s current highway milestone. Aggregators that rely on radius search would mistakenly match this vehicle; RoadSide’s vector engine rejects it immediately.
+          </p>
+        </div>
+        <div class="p-5 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 space-y-3">
+          <div class="text-emerald-400 font-bold text-sm">✓ cos(θ) ≥ 0.85 (Forward Intercept Lock)</div>
+          <p class="text-slate-400 font-sans text-xs leading-relaxed">
+            When the dot product is positive and close to 1, the hub is situated directly ahead along the remaining highway corridor. Cargo can be staged with zero km carrier diversion.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 22 Highway Gateways Grid -->
+    <div class="space-y-6">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <h2 class="text-3xl font-bold font-display text-white">22 National Highway Gateways</h2>
+        <p class="text-slate-400 text-sm font-sans">Strategically placed bypass hubs across major freight corridors in India.</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 font-mono text-xs">
+        <div class="p-4 rounded-2xl bg-slate-900/60 border border-white/[0.08]">
+          <span class="text-emerald-400 font-bold block">NH-65 Outer Hub</span>
+          <span class="text-slate-400 text-[11px]">Hyderabad East Node</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/60 border border-white/[0.08]">
+          <span class="text-emerald-400 font-bold block">NH-48 Western Hub</span>
+          <span class="text-slate-400 text-[11px]">Pune-Bengaluru Node</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/60 border border-white/[0.08]">
+          <span class="text-emerald-400 font-bold block">NH-44 North-South Hub</span>
+          <span class="text-slate-400 text-[11px]">Nagpur Central Node</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/60 border border-white/[0.08]">
+          <span class="text-emerald-400 font-bold block">NH-16 Coastal Hub</span>
+          <span class="text-slate-400 text-[11px]">Vizag Port Bypass</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 text-center bg-void border-t border-white/[0.08]">
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+      <h2 class="text-3xl sm:text-5xl font-bold font-display text-white">See the Vector Engine Live</h2>
+      <a
+        href="https://app-roadside-logistics.vercel.app/"
+        target="_blank"
+        class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 active:scale-95 transition font-mono"
+      >
+        <span>Explore Network</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-void border-t border-white/[0.06] py-12 text-xs font-mono text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+          <i data-lucide="truck" class="w-4 h-4"></i>
+        </div>
+        <span class="font-bold text-slate-200">ROADSIDE LOGISTICS</span>
+      </div>
+      <div class="flex flex-wrap gap-6 text-slate-400">
+        <a href="index.html" class="hover:text-emerald-400 transition">Network OS</a>
+        <a href="how-it-works.html" class="hover:text-emerald-400 transition">How It Works</a>
+        <a href="vector-engine.html" class="hover:text-emerald-400 transition">Vector Engine</a>
+        <a href="for-businesses.html" class="hover:text-emerald-400 transition">For Businesses</a>
+        <a href="arbitrage.html" class="hover:text-emerald-400 transition">Arbitrage</a>
+        <a href="developers.html" class="hover:text-emerald-400 transition">API Docs</a>
+      </div>
+      <div class="text-slate-600">© 2026 RoadSide Logistics.</div>
+    </div>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

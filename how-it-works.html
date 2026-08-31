@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — RoadSide Logistics</title>
+  <meta name="description" content="Detailed 4-stage autonomous freight capacity booking and forward corridor intercept workflow." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Space Grotesk, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            void: '#030712',
+            cyber: {
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .bento-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(3, 7, 18, 0.9) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-void text-slate-100 font-sans selection:bg-emerald-500 selection:text-void relative">
+
+  <!-- 3D Particle Web Canvas Background -->
+  <canvas id="canvas3d" class="fixed inset-0 pointer-events-none z-0 opacity-30"></canvas>
+
+  <!-- Ambient Glow -->
+  <div class="fixed top-0 right-1/4 w-[500px] h-[400px] bg-cyan-500/10 blur-[150px] pointer-events-none -z-10 rounded-full"></div>
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-void/85 backdrop-blur-xl border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.3)] group-hover:scale-105 transition-transform">
+          <i data-lucide="truck" class="w-4 h-4 text-slate-950 stroke-[2.5]"></i>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-display font-bold tracking-wider text-base text-white uppercase whitespace-nowrap">
+            ROADSIDE <span class="text-emerald-400">LOGISTICS</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/[0.08] text-xs font-mono font-medium text-slate-300 whitespace-nowrap">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">Network OS</a>
+        <a href="how-it-works.html" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">How It Works</a>
+        <a href="vector-engine.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">Vector Engine</a>
+        <a href="for-businesses.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">For Businesses</a>
+        <a href="arbitrage.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">Arbitrage Simulator</a>
+        <a href="developers.html" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/60 transition">API Docs</a>
+      </nav>
+
+      <!-- Right CTAs -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap font-mono">
+        <a
+          href="https://app-roadside-logistics.vercel.app/"
+          target="_blank"
+          class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 active:scale-95 transition flex items-center gap-1.5 uppercase tracking-wider"
+        >
+          <span>Explore Network</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="py-20 bg-gradient-to-b from-void via-slate-950/60 to-void border-b border-white/[0.08]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-xs font-mono text-emerald-300">
+        <span>THE CORRIDOR LIFECYCLE</span>
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-extrabold font-display text-white tracking-tight leading-tight">
+        How Cargo Moves Across <br />
+        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          The Intelligent Capacity Grid
+        </span>
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto font-sans leading-relaxed">
+        Discover how our autonomous coordination pipeline eliminates empty miles while ensuring zero-detour, on-time delivery across national highways.
+      </p>
+    </div>
+  </section>
+
+  <!-- DEEP 4-STEP PROCESS DETAIL -->
+  <section class="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    
+    <!-- Step 1 Detail -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bento-card p-8 rounded-3xl">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-3xl font-black text-emerald-400">01</span>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="package-search" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold font-display text-white">Cargo Specification & Ingestion</h2>
+        <p class="text-sm text-slate-300 font-sans leading-relaxed">
+          The shipper inputs origin, destination, cargo weight (kg), dimensional density, and delivery SLA requirement. The platform parses the optimal national highway corridor node.
+        </p>
+        <ul class="space-y-2 text-xs font-mono text-slate-400">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Real-time payload kg & cubic meter verification</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Express vs Standard corridor SLA priority modes</span>
+          </li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7 bg-slate-900/90 border border-white/[0.08] p-6 rounded-2xl font-mono text-xs space-y-3">
+        <div class="text-[10px] text-slate-500 uppercase">TELEMETRY INGESTION MATRIX</div>
+        <div class="grid grid-cols-2 gap-3 text-center">
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+            <span class="text-[9px] text-slate-500 block">ORIGIN / DEST</span>
+            <span class="font-bold text-white">Hyderabad ⇄ Chennai</span>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+            <span class="text-[9px] text-slate-500 block">PAYLOAD TONNAGE</span>
+            <span class="font-bold text-emerald-400">700 kg (0.7 Tonnes)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 Detail -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bento-card p-8 rounded-3xl">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-3xl font-black text-cyan-400">02</span>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold font-display text-white">Forward Vector Match Calculation</h2>
+        <p class="text-sm text-slate-300 font-sans leading-relaxed">
+          The Vector Engine queries active commercial vehicles within the corridor trajectory. It mathematically verifies that the truck is positioned ahead of the pickup hub and has remaining weight capacity.
+        </p>
+        <ul class="space-y-2 text-xs font-mono text-slate-400">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>Vector Dot Product D⃗ · H⃗ ≥ 0 execution</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>Instant payload slot reservation in active truck database</span>
+          </li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7 bg-slate-900/90 border border-white/[0.08] p-6 rounded-2xl font-mono text-xs space-y-3">
+        <div class="text-[10px] text-slate-500 uppercase">ACTIVE TRUCK CAPACITY SCANNER</div>
+        <div class="p-3.5 bg-emerald-950/30 border border-emerald-500/40 rounded-xl flex items-center justify-between">
+          <div>
+            <span class="font-bold text-white block">AP 31 TT 5510 (10-Ton Multi-Axle)</span>
+            <span class="text-[10px] text-emerald-300">2.4T Available • 42 mins to Outer Hub</span>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold">96% MATCH</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 Detail -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bento-card p-8 rounded-3xl">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-3xl font-black text-teal-400">03</span>
+          <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center">
+            <i data-lucide="map-pin" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold font-display text-white">Smart Hub Dock Cross-Docking</h2>
+        <p class="text-sm text-slate-300 font-sans leading-relaxed">
+          The shipper stages cargo at the designated Highway Gateway Hub. The carrier arrives at the bypass dock without entering congested city centres, achieving 15-minute express turnaround.
+        </p>
+        <ul class="space-y-2 text-xs font-mono text-slate-400">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-teal-400"></i>
+            <span>Zero kilometer detour penalty for commercial carriers</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-teal-400"></i>
+            <span>Dock gate barcode scanning & digital payload lock</span>
+          </li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7 bg-slate-900/90 border border-white/[0.08] p-6 rounded-2xl font-mono text-xs space-y-3">
+        <div class="text-[10px] text-slate-500 uppercase">GATEWAY HUB LOGISTICS</div>
+        <div class="p-3.5 bg-slate-950 border border-slate-800 rounded-xl text-slate-300">
+          <div class="font-bold text-white">Hayathnagar Gate Terminal (NH-65 Outer Node)</div>
+          <p class="text-[11px] text-slate-400 mt-1 font-sans">Automated cross-dock bay with certified weighbridge and 24/7 security.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 Detail -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bento-card p-8 rounded-3xl">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-3xl font-black text-emerald-400">04</span>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="radio" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold font-display text-white">In-Transit Telemetry & Verification</h2>
+        <p class="text-sm text-slate-300 font-sans leading-relaxed">
+          Both shipper and receiver track real-time GPS breadcrumbs, speed telematics, and automated milestone geofence transitions until verified digital delivery handover.
+        </p>
+        <ul class="space-y-2 text-xs font-mono text-slate-400">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Continuous GPS location updates with sub-minute latency</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Cryptographic Proof-of-Delivery signature confirmation</span>
+          </li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7 bg-slate-900/90 border border-white/[0.08] p-6 rounded-2xl font-mono text-xs space-y-3">
+        <div class="text-[10px] text-slate-500 uppercase">REAL-TIME TELEMETRY CHAIN</div>
+        <div class="space-y-2 text-slate-300 text-[11px]">
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-emerald-500/30">
+            <span>✓ Hub Staging Handover</span>
+            <span class="text-emerald-400">14:15 IST • Verified</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-cyan-500/30">
+            <span>✓ NH-65 Highway In-Transit</span>
+            <span class="text-cyan-400">Speed: 56 km/h • GPS Sync</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800">
+            <span>○ Destination Gateway Delivery</span>
+            <span class="text-slate-500">ETA: 21:40 IST</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 text-center bg-void border-t border-white/[0.08]">
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+      <h2 class="text-3xl sm:text-5xl font-bold font-display text-white">Experience the Network in Real-Time</h2>
+      <p class="text-slate-300 text-sm sm:text-base font-sans">Explore live trucks moving across national corridors on the interactive map.</p>
+      <a
+        href="https://app-roadside-logistics.vercel.app/"
+        target="_blank"
+        class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 active:scale-95 transition font-mono"
+      >
+        <span>Launch Interactive Map</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-void border-t border-white/[0.06] py-12 text-xs font-mono text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+          <i data-lucide="truck" class="w-4 h-4"></i>
+        </div>
+        <span class="font-bold text-slate-200">ROADSIDE LOGISTICS</span>
+      </div>
+      <div class="flex flex-wrap gap-6 text-slate-400">
+        <a href="index.html" class="hover:text-emerald-400 transition">Network OS</a>
+        <a href="how-it-works.html" class="hover:text-emerald-400 transition">How It Works</a>
+        <a href="vector-engine.html" class="hover:text-emerald-400 transition">Vector Engine</a>
+        <a href="for-businesses.html" class="hover:text-emerald-400 transition">For Businesses</a>
+        <a href="arbitrage.html" class="hover:text-emerald-400 transition">Arbitrage</a>
+        <a href="developers.html" class="hover:text-emerald-400 transition">API Docs</a>
+      </div>
+      <div class="text-slate-600">© 2026 RoadSide Logistics.</div>
+    </div>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>
