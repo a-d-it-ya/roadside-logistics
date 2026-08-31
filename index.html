@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoadSide Logistics — Move Cargo Smarter. Use Capacity Already on the Road.</title>
+  <meta name="description" content="RoadSide Logistics connects freight shipments with trucks already travelling along compatible highway corridors. Intelligent shared capacity and dedicated logistics network." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            slate: {
+              950: '#020617',
+              900: '#0b1329',
+              850: '#0f172a',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #020617;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .custom-glow {
+      box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.15);
+    }
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.05); }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950">
+
+  <!-- Ambient Background Glow -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-emerald-500/10 via-cyan-500/5 to-transparent blur-3xl pointer-events-none -z-10"></div>
+
+  <!-- ==================================================== -->
+  <!-- TOP NAVIGATION                                       -->
+  <!-- ==================================================== -->
+  <header class="sticky top-0 z-50 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Left: Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.35)] group-hover:scale-105 transition">
+          <i data-lucide="truck" class="w-5 h-5 text-slate-950 stroke-[2.5]"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold tracking-wider text-base sm:text-lg text-white uppercase font-mono">
+              ROADSIDE <span class="text-emerald-400">LOGISTICS</span>
+            </span>
+            <span class="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-950/90 text-emerald-300 border border-emerald-500/30 font-mono">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              LIVE DEMO
+            </span>
+          </div>
+          <p class="text-[10px] text-slate-400 tracking-tight hidden sm:block">
+            Network Intelligence for Freight Corridors
+          </p>
+        </div>
+      </a>
+
+      <!-- Center: Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300 font-mono">
+        <a href="#product" class="hover:text-emerald-400 transition-colors">Product</a>
+        <a href="#how-it-works" class="hover:text-emerald-400 transition-colors">How It Works</a>
+        <a href="#intelligence" class="hover:text-emerald-400 transition-colors">Intelligence</a>
+        <a href="#booking-models" class="hover:text-emerald-400 transition-colors">For Businesses</a>
+        <a href="#architecture" class="hover:text-emerald-400 transition-colors">About & Vision</a>
+      </nav>
+
+      <!-- Right: Action CTAs -->
+      <div class="flex items-center gap-3">
+        <a
+          href="https://roadside-logistics.vercel.app"
+          target="_blank"
+          class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 transition font-mono"
+        >
+          Sign In
+        </a>
+        <a
+          href="https://roadside-logistics.vercel.app"
+          target="_blank"
+          class="px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/20 active:scale-95 transition flex items-center gap-2 font-mono uppercase tracking-wider"
+        >
+          <span>Explore Network</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 1 — HERO                                     -->
+  <!-- ==================================================== -->
+  <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 shadow-md">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="font-semibold text-emerald-400">● LIVE NETWORK DEMO</span>
+            <span class="text-slate-600">|</span>
+            <span class="text-slate-400">Real-time Freight Capacity Intelligence</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
+            Move Cargo Smarter. <br />
+            <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+              Use Capacity Already on the Road.
+            </span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
+            RoadSide Logistics connects shipments with commercial trucks already travelling along compatible highway corridors—helping businesses discover available partial space without always booking an entire dedicated vehicle.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a
+              href="https://roadside-logistics.vercel.app"
+              target="_blank"
+              class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-base shadow-xl shadow-emerald-500/25 active:scale-95 transition flex items-center justify-center gap-3 font-mono uppercase tracking-wider"
+            >
+              <i data-lucide="compass" class="w-5 h-5"></i>
+              <span>Explore the Network</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+
+            <a
+              href="#how-it-works"
+              class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-800 text-base font-semibold transition flex items-center justify-center gap-2"
+            >
+              <i data-lucide="help-circle" class="w-5 h-5 text-slate-400"></i>
+              <span>How It Works</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 pt-6 border-t border-slate-800/80 font-mono text-left">
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <div class="text-xs text-slate-400">Monitored Fleet</div>
+              <div class="text-lg font-extrabold text-white">12+ Corridors</div>
+              <div class="text-[10px] text-emerald-400">Simulated Telemetry</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <div class="text-xs text-slate-400">Logistics Hubs</div>
+              <div class="text-lg font-extrabold text-cyan-400">22 National Nodes</div>
+              <div class="text-[10px] text-slate-400">Origin Handover</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <div class="text-xs text-slate-400">Shipper Savings</div>
+              <div class="text-lg font-extrabold text-emerald-400">40% – 60%</div>
+              <div class="text-[10px] text-slate-400">vs Full Dedicated</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Visual -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none rounded-3xl bg-slate-950 border-2 border-emerald-500/40 p-5 shadow-2xl shadow-emerald-500/10 backdrop-blur-2xl space-y-4">
+            
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="font-mono text-xs font-bold uppercase text-slate-200">Active Corridor Live Telemetry</span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+                NH-65 Active
+              </span>
+            </div>
+
+            <div class="relative h-56 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 overflow-hidden flex flex-col justify-between p-4">
+              <div class="absolute top-1/2 left-8 right-8 h-1.5 bg-slate-800 -translate-y-1/2 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-pulse" style="width: 70%;"></div>
+              </div>
+
+              <div class="flex justify-between relative z-10 text-xs font-mono">
+                <div class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-xl text-slate-300 flex items-center gap-1.5 shadow-md">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+                  <span>Vizag (Origin)</span>
+                </div>
+                <div class="bg-slate-950 border border-cyan-500/50 px-3 py-1.5 rounded-xl text-cyan-300 flex items-center gap-1.5 shadow-md">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i>
+                  <span>Chennai (Dest)</span>
+                </div>
+              </div>
+
+              <div class="relative z-10 flex items-center justify-center">
+                <div class="bg-emerald-950/90 border border-emerald-400 p-2.5 rounded-2xl shadow-xl text-center space-y-0.5">
+                  <div class="flex items-center justify-center gap-1 text-[11px] font-bold font-mono text-emerald-300">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>Smart Pickup Hub (Ahead)</span>
+                  </div>
+                  <p class="text-[10px] text-slate-300 font-sans">Hyderabad East Logistics Park</p>
+                  <span class="inline-block text-[9px] font-mono px-2 py-0.2 rounded bg-emerald-500/20 text-emerald-300">
+                    Truck arrives in 42 mins
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center relative z-10 text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                    <i data-lucide="truck" class="w-3.5 h-3.5"></i>
+                  </div>
+                  <div>
+                    <span class="text-white font-bold">AP 31 TT 5510</span>
+                    <span class="text-[10px] text-slate-500 block">54 km/h • 2.4T Available</span>
+                  </div>
+                </div>
+                <span class="text-emerald-400 font-bold">96% Optimal Match</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs font-mono">
+              <div class="space-y-0.5">
+                <span class="text-[10px] text-slate-400 uppercase">Shared Cargo Request</span>
+                <div class="font-bold text-white">700 kg General Cargo</div>
+                <span class="text-emerald-400 text-[10px]">Zero Detour Pickup Lock</span>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-slate-400 block line-through">₹11,000</span>
+                <span class="text-sm font-extrabold text-emerald-400">₹4,850</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 2 — THE PROBLEM                              -->
+  <!-- ==================================================== -->
+  <section class="py-20 bg-slate-900/50 border-y border-slate-800/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-emerald-400">
+          The Fundamental Logistics Inefficiency
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Empty Capacity Is Already Moving.
+        </h2>
+        <p class="text-slate-300 text-base leading-relaxed">
+          Every day, thousands of commercial freight vehicles traverse national highways with 30% to 70% unused payload space. Meanwhile, mid-sized businesses pay exorbitant rates for entire dedicated vehicles they cannot fill.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Left: Traditional -->
+        <div class="p-8 rounded-3xl bg-slate-950 border border-red-500/20 shadow-xl space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="x-circle" class="w-5 h-5 text-red-400"></i>
+              <h3 class="font-mono font-bold text-base text-white uppercase">Traditional Logistics</h3>
+            </div>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-500/30">
+              High Cost & Waste
+            </span>
+          </div>
+
+          <div class="space-y-4 text-xs font-mono">
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
+              <span class="text-slate-500 block text-[10px]">STEP 1</span>
+              <span class="font-bold text-white">Your Cargo (700 kg)</span>
+            </div>
+            <div class="text-center text-slate-600">↓</div>
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
+              <span class="text-slate-500 block text-[10px]">STEP 2</span>
+              <span class="font-bold text-red-400">Book Entire 10-Ton Truck</span>
+              <p class="text-[11px] text-slate-400 font-sans mt-0.5">Pay for 100% capacity regardless of how little you ship.</p>
+            </div>
+            <div class="text-center text-slate-600">↓</div>
+            <div class="p-3.5 rounded-xl bg-red-950/30 border border-red-500/40 text-red-300">
+              <span class="text-red-400/70 block text-[10px]">RESULT</span>
+              <span class="font-bold text-white text-sm">₹11,000+ per trip</span>
+              <p class="text-[11px] font-sans mt-0.5">90% of truck space travels completely empty.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: RoadSide Model -->
+        <div class="p-8 rounded-3xl bg-slate-950 border-2 border-emerald-500/50 shadow-2xl shadow-emerald-500/10 space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+              <h3 class="font-mono font-bold text-base text-white uppercase">RoadSide Capacity Network</h3>
+            </div>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40">
+              Optimal Utilization
+            </span>
+          </div>
+
+          <div class="space-y-4 text-xs font-mono">
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
+              <span class="text-slate-500 block text-[10px]">STEP 1</span>
+              <span class="font-bold text-white">Your Cargo (700 kg)</span>
+            </div>
+            <div class="text-center text-emerald-500 font-bold">↓</div>
+            <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-200">
+              <span class="text-emerald-400 block text-[10px]">STEP 2</span>
+              <span class="font-bold text-white">Smart Pickup Hub Handover</span>
+              <p class="text-[11px] font-sans mt-0.5">Board an existing truck already travelling your destination corridor.</p>
+            </div>
+            <div class="text-center text-emerald-500 font-bold">↓</div>
+            <div class="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-500/60 text-emerald-300">
+              <span class="text-emerald-400 block text-[10px]">RESULT</span>
+              <span class="font-bold text-white text-sm">₹4,850 per trip (56% Savings)</span>
+              <p class="text-[11px] font-sans mt-0.5">Zero empty miles. Guaranteed on-time corridor arrival.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-12 max-w-3xl mx-auto p-5 rounded-2xl bg-slate-950 border border-slate-800 text-center text-slate-300 text-sm leading-relaxed">
+        <strong class="text-white font-mono uppercase text-xs block mb-1">The Core Technological Challenge:</strong>
+        The solution is not simply showing trucks on a map. The challenge is mathematically verifying which truck is <span class="text-emerald-400 font-semibold">still AHEAD of the pickup hub</span>, has remaining payload space, and can seamlessly deliver without reverse detours.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 3 — HOW IT WORKS                             -->
+  <!-- ==================================================== -->
+  <section id="how-it-works" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-cyan-400">
+          End-to-End Logistics Flow
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          From Shipment Request to Smart Match.
+        </h2>
+        <p class="text-slate-300 text-base">
+          Four automated steps seamlessly connect shipper demand to on-road freight capacity.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Step 1 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/50 transition-all group space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-2xl font-black text-emerald-400">01</span>
+            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 group-hover:border-emerald-500/40 flex items-center justify-center text-slate-300 group-hover:text-emerald-300 transition">
+              <i data-lucide="package-check" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 class="font-bold text-lg text-white">Enter Your Shipment</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Specify origin, destination, cargo weight (kg), cargo category, and your delivery speed priority.
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] font-mono text-slate-500 space-y-1">
+            <div>• From / To city pairing</div>
+            <div>• Exact cargo kg weight</div>
+            <div>• Delivery SLA preference</div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 transition-all group space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-2xl font-black text-cyan-400">02</span>
+            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 group-hover:border-cyan-500/40 flex items-center justify-center text-slate-300 group-hover:text-cyan-300 transition">
+              <i data-lucide="cpu" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 class="font-bold text-lg text-white">Evaluate Capacity</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Our matching engine instantly analyzes all active vehicles across remaining corridor distance, capacity fitness, and ETA.
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] font-mono text-slate-500 space-y-1">
+            <div>• Forward dot-product check</div>
+            <div>• Live payload reservation</div>
+            <div>• Multi-criteria scoring</div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-teal-500/50 transition-all group space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-2xl font-black text-teal-400">03</span>
+            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 group-hover:border-teal-500/40 flex items-center justify-center text-slate-300 group-hover:text-teal-300 transition">
+              <i data-lucide="map-pin" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 class="font-bold text-lg text-white">Smart Hub Handover</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Bring your consignment to the strategically recommended highway logistics hub before the scheduled cutoff time.
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] font-mono text-slate-500 space-y-1">
+            <div>• 0 km vehicle detour</div>
+            <div>• 15-min safety cutoff</div>
+            <div>• Streamlined dock transfer</div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/50 transition-all group space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-2xl font-black text-emerald-400">04</span>
+            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 group-hover:border-emerald-500/40 flex items-center justify-center text-slate-300 group-hover:text-emerald-300 transition">
+              <i data-lucide="radio" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <h3 class="font-bold text-lg text-white">Track Your Shipment</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Follow real-time GPS coordinates, vehicle speed, in-transit milestones, and verified delivery handovers on the interactive map.
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] font-mono text-slate-500 space-y-1">
+            <div>• Live breadcrumb telemetry</div>
+            <div>• Immutable milestone audits</div>
+            <div>• Instant consignee alerts</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 4 — THE INTELLIGENCE (Crucial Section)       -->
+  <!-- ==================================================== -->
+  <section id="intelligence" class="py-24 bg-slate-900/70 border-y border-slate-800/90 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-amber-400">
+          The Core Route Matching Principle
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Not Every Truck Going Your Way Is a Match.
+        </h2>
+        <p class="text-slate-300 text-base leading-relaxed">
+          Standard freight aggregators match any vehicle moving between two cities. RoadSide evaluates the truck’s <strong class="text-white">active remaining route progress</strong> using vector dot products to ensure zero backward detours.
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto rounded-3xl bg-slate-950 border-2 border-slate-800 p-6 sm:p-8 space-y-8 shadow-2xl">
+        
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-center font-mono text-xs">
+          <div class="flex-1 p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-slate-500 block text-[10px]">POSITION 1</span>
+            <span class="font-bold text-white">Truck Current Position</span>
+            <span class="text-emerald-400 block text-[10px]">En Route on Highway</span>
+          </div>
+          <i data-lucide="arrow-right" class="w-5 h-5 text-emerald-400 hidden md:block"></i>
+          <div class="flex-1 p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/50">
+            <span class="text-emerald-400 block text-[10px]">POSITION 2</span>
+            <span class="font-bold text-emerald-300">Forward Pickup Hub</span>
+            <span class="text-white block text-[10px]">Lies AHEAD on Route</span>
+          </div>
+          <i data-lucide="arrow-right" class="w-5 h-5 text-emerald-400 hidden md:block"></i>
+          <div class="flex-1 p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-slate-500 block text-[10px]">POSITION 3</span>
+            <span class="font-bold text-white">Corridor Destination</span>
+            <span class="text-cyan-400 block text-[10px]">Continues Forward</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <div class="p-6 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-4">
+            <div class="flex items-center gap-2 text-red-400 font-mono font-bold text-sm">
+              <i data-lucide="x-circle" class="w-5 h-5"></i>
+              <span>INVALID MATCH SCENARIOS (Rejected)</span>
+            </div>
+            <ul class="space-y-3 text-xs text-slate-300 font-sans">
+              <li class="flex items-start gap-2.5">
+                <span class="text-red-400 font-bold font-mono">❌</span>
+                <div>
+                  <strong class="text-white">Truck already passed pickup point:</strong>
+                  <p class="text-slate-400 text-[11px]">Truck is at KM 320; pickup hub was at KM 180.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-red-400 font-bold font-mono">❌</span>
+                <div>
+                  <strong class="text-white">Pickup hub lies behind remaining route:</strong>
+                  <p class="text-slate-400 text-[11px]">System rejects hubs requiring backward backtracking.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-red-400 font-bold font-mono">❌</span>
+                <div>
+                  <strong class="text-white">Truck would need to reverse direction:</strong>
+                  <p class="text-slate-400 text-[11px]">Violates forward dot product (D · H &lt; 0).</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 space-y-4">
+            <div class="flex items-center gap-2 text-emerald-400 font-mono font-bold text-sm">
+              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+              <span>VALID ROADSIDE MATCH (Approved)</span>
+            </div>
+            <ul class="space-y-3 text-xs text-slate-300 font-sans">
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold font-mono">✓</span>
+                <div>
+                  <strong class="text-white">Truck is actively approaching pickup region:</strong>
+                  <p class="text-slate-400 text-[11px]">Sufficient ETA window for cargo to be staged at hub.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold font-mono">✓</span>
+                <div>
+                  <strong class="text-white">Pickup hub is positioned AHEAD along remaining route:</strong>
+                  <p class="text-slate-400 text-[11px]">Zero km highway detour for the carrier.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold font-mono">✓</span>
+                <div>
+                  <strong class="text-white">Truck continues seamlessly toward destination:</strong>
+                  <p class="text-slate-400 text-[11px]">Continuous forward corridor flow.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 5 — PRODUCT PREVIEW                          -->
+  <!-- ==================================================== -->
+  <section id="product" class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-emerald-400">
+          Interactive Freight Interface
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          See the Freight Network.
+        </h2>
+        <p class="text-slate-300 text-base">
+          Experience an intelligent control tower designed for shippers, dispatchers, and commercial fleet managers.
+        </p>
+      </div>
+
+      <div class="max-w-6xl mx-auto rounded-3xl bg-slate-950 border-2 border-slate-800 shadow-2xl overflow-hidden">
+        
+        <div class="bg-slate-900/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+            <span class="text-xs font-mono text-slate-400 ml-2">app.roadside.in/corridors</span>
+          </div>
+          <div class="text-xs font-mono text-emerald-400 flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Live Freight Network Explorer</span>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 bg-slate-950 space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <div class="lg:col-span-4 p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4 text-xs font-mono">
+              <div class="text-white font-bold uppercase tracking-wider text-sm flex items-center justify-between">
+                <span>Active Corridor Query</span>
+                <span class="text-emerald-400 text-[10px]">Verified</span>
+              </div>
+              <div class="space-y-2">
+                <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                  <span class="text-[10px] text-slate-500 block">ORIGIN</span>
+                  <span class="font-bold text-white">Hyderabad (Outer Hub)</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                  <span class="text-[10px] text-slate-500 block">DESTINATION</span>
+                  <span class="font-bold text-cyan-300">Chennai Central</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                  <span class="text-[10px] text-slate-500 block">CARGO SPECIFICATION</span>
+                  <span class="font-bold text-emerald-400">700 kg • General Freight</span>
+                </div>
+              </div>
+              <a
+                href="https://roadside-logistics.vercel.app"
+                target="_blank"
+                class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold transition uppercase tracking-wider text-center block"
+              >
+                Run Smart Match
+              </a>
+            </div>
+
+            <div class="lg:col-span-8 p-5 rounded-2xl bg-slate-900/40 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="font-mono text-xs text-slate-300">
+                  <strong class="text-emerald-400">AP 31 TT 5510</strong> — Deccan Freight Express
+                </div>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40">
+                  96% Match • Best Value
+                </span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 text-center font-mono text-xs">
+                <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                  <span class="text-[9px] text-slate-500 block">AVAILABLE</span>
+                  <span class="font-bold text-white">2.4 Tonnes</span>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                  <span class="text-[9px] text-slate-500 block">EST. ARRIVAL</span>
+                  <span class="font-bold text-cyan-300">Today, 21:40</span>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                  <span class="text-[9px] text-slate-500 block">SAVINGS</span>
+                  <span class="font-bold text-emerald-400">₹6,150 (56%)</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs font-sans text-slate-300 flex items-center justify-between">
+                <span>Recommended Pickup Hub: <strong class="text-white">Hayathnagar Gate Terminal</strong></span>
+                <span class="font-mono text-emerald-400 font-bold text-xs">0 km Detour</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-900 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span class="text-xs text-slate-400 font-mono">
+            Interactive real-time map with nationwide telemetry simulation.
+          </span>
+          <a
+            href="https://roadside-logistics.vercel.app"
+            target="_blank"
+            class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs uppercase font-mono tracking-wider shadow-md transition flex items-center gap-2"
+          >
+            <span>Explore the Live Demo</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 6 — BOOK YOUR WAY (Two Premium Models)       -->
+  <!-- ==================================================== -->
+  <section id="booking-models" class="py-24 bg-slate-900/60 border-y border-slate-800/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-teal-400">
+          Flexible Freight Procurement
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          One Network. Two Ways to Move.
+        </h2>
+        <p class="text-slate-300 text-base">
+          Choose the exact capacity configuration your business logistics demand.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Card 1: Share Capacity -->
+        <div class="p-8 rounded-3xl bg-slate-950 border-2 border-emerald-500/50 shadow-xl space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center">
+              <i data-lucide="package-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+                MOST POPULAR
+              </span>
+              <h3 class="text-2xl font-bold text-white mt-2">📦 SHARE CAPACITY</h3>
+              <p class="text-sm text-slate-300 mt-1">Pay only for the exact space and tonnage you need.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 font-mono text-xs text-slate-300 space-y-1">
+              <span class="text-[10px] text-slate-500 block">CAPACITY EXAMPLE</span>
+              <div class="font-bold text-white text-sm">700 kg inside a 10-Ton Truck</div>
+              <span class="text-emerald-400 block text-[11px]">Save up to 60% compared to dedicated booking</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Book partial truck capacity on active corridors</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Lower overall freight transportation expenditure</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Smart hub handover with 0 km carrier detours</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Real-time GPS tracking and milestone alerts</span>
+              </li>
+            </ul>
+          </div>
+
+          <a
+            href="https://roadside-logistics.vercel.app"
+            target="_blank"
+            class="w-full py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase font-mono tracking-wider shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2"
+          >
+            <span>Find Shared Capacity</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Card 2: Full Vehicle -->
+        <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 shadow-xl space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 flex items-center justify-center">
+              <i data-lucide="truck" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/30">
+                ENTERPRISE DEDICATED
+              </span>
+              <h3 class="text-2xl font-bold text-white mt-2">🚛 FULL VEHICLE</h3>
+              <p class="text-sm text-slate-300 mt-1">Reserve the entire vehicle exclusively for your cargo.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 font-mono text-xs text-slate-300 space-y-1">
+              <span class="text-[10px] text-slate-500 block">CAPACITY EXAMPLE</span>
+              <div class="font-bold text-white text-sm">100% Dedicated 10-Ton Truck</div>
+              <span class="text-cyan-400 block text-[11px]">Direct bay loading without intermediate freight</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                <span>Entire vehicle reserved exclusively for your company</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                <span>Full shipment control and direct point-to-point transit</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                <span>Ideal for bulk manufacturing, machinery, or full loads</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                <span>Dedicated driver coordination & custom scheduling</span>
+              </li>
+            </ul>
+          </div>
+
+          <a
+            href="https://roadside-logistics.vercel.app"
+            target="_blank"
+            class="w-full py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-cyan-300 hover:text-white border border-cyan-500/30 hover:border-cyan-500 font-bold text-xs uppercase font-mono tracking-wider transition flex items-center justify-center gap-2"
+          >
+            <span>Book Full Vehicle</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 7 — WHY ROADSIDE                             -->
+  <!-- ==================================================== -->
+  <section class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-emerald-400">
+          Architected for Performance
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Built for How Freight Actually Moves.
+        </h2>
+        <p class="text-slate-300 text-base">
+          A purpose-built logistics operating system engineered to maximize road efficiency.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 transition space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
+            🧠
+          </div>
+          <h3 class="font-bold text-base text-white">Intelligent Matching</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Matches future pickup opportunities instead of simply showing trucks travelling in the same general direction.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 transition space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
+            💰
+          </div>
+          <h3 class="font-bold text-base text-white">Reduce Transport Costs</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Discover available capacity already moving through the logistics network and slash high freight expenses.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 transition space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
+            🛣️
+          </div>
+          <h3 class="font-bold text-base text-white">No Unnecessary Detours</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Vehicles continue along their planned highway route without wasting fuel or time entering congested city centres.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 transition space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
+            📍
+          </div>
+          <h3 class="font-bold text-base text-white">Smart Pickup Hubs</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Meet vehicles at strategically positioned logistics handover points along highway bypasses.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 transition space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
+            📡
+          </div>
+          <h3 class="font-bold text-base text-white">Shipment Visibility</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Track shipment movement through the network with real-time GPS telemetry and milestone audit events.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 transition space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
+            ⚡
+          </div>
+          <h3 class="font-bold text-base text-white">Faster Capacity Discovery</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Discover compatible freight capacity in seconds through a single unified corridor intelligence interface.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 8 — WHO IT IS FOR                            -->
+  <!-- ==================================================== -->
+  <section class="py-24 bg-slate-900/60 border-y border-slate-800/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-cyan-400">
+          Built for Every Stakeholder
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Built for Every Side of Freight.
+        </h2>
+        <p class="text-slate-300 text-base">
+          Connecting enterprises, shippers, and commercial fleet owners into a unified logistics grid.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 space-y-4">
+          <div class="text-3xl">🏭</div>
+          <h3 class="text-xl font-bold text-white">Businesses</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Move smaller shipments without always paying for an entire vehicle. Optimize working capital and supply chain frequency.
+          </p>
+          <div class="pt-2 text-[11px] font-mono text-emerald-400">
+            ✓ Pay per kilogram • Lower freight spend
+          </div>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 space-y-4">
+          <div class="text-3xl">📦</div>
+          <h3 class="text-xl font-bold text-white">Shippers</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Find compatible transport capacity for cargo moving between major industrial centers with guaranteed pickup timing.
+          </p>
+          <div class="pt-2 text-[11px] font-mono text-cyan-400">
+            ✓ 22 National hubs • Guaranteed cutoff SLAs
+          </div>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 space-y-4">
+          <div class="text-3xl">🚛</div>
+          <h3 class="text-xl font-bold text-white">Fleet Operators</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Make unused vehicle capacity discoverable while continuing planned routes. Generate extra revenue without adding mileage.
+          </p>
+          <div class="pt-2 text-[11px] font-mono text-teal-400">
+            ✓ Maximize yield • Monetize empty space
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 9 — FROM DEMO TO REAL NETWORK (Transparency) -->
+  <!-- ==================================================== -->
+  <section id="architecture" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest font-bold text-amber-400">
+          Technical Architecture & Transparency
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Designed for a Real-Time Freight Network.
+        </h2>
+        <p class="text-slate-300 text-base leading-relaxed">
+          RoadSide Logistics is currently demonstrated with simulated fleet and route data. The platform architecture is engineered to support real-world vehicle telemetry, mobile driver applications, and live enterprise operations.
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto p-6 sm:p-8 rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl space-y-8">
+        
+        <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold text-center">
+          SYSTEM TELEMETRY & MATCHING PIPELINE
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center font-mono text-xs">
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col items-center justify-center gap-1.5">
+            <i data-lucide="smartphone" class="w-5 h-5 text-emerald-400"></i>
+            <span class="font-bold text-white text-[11px]">DRIVER APP / GPS</span>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col items-center justify-center gap-1.5">
+            <i data-lucide="radio" class="w-5 h-5 text-cyan-400"></i>
+            <span class="font-bold text-white text-[11px]">LOCATION API</span>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col items-center justify-center gap-1.5">
+            <i data-lucide="server" class="w-5 h-5 text-teal-400"></i>
+            <span class="font-bold text-white text-[11px]">ROADSIDE BACKEND</span>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col items-center justify-center gap-1.5">
+            <i data-lucide="cpu" class="w-5 h-5 text-amber-400"></i>
+            <span class="font-bold text-white text-[11px]">MATCHING ENGINE</span>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col items-center justify-center gap-1.5">
+            <i data-lucide="layers" class="w-5 h-5 text-indigo-400"></i>
+            <span class="font-bold text-white text-[11px]">LOGISTICS NETWORK</span>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col items-center justify-center gap-1.5">
+            <i data-lucide="navigation" class="w-5 h-5 text-emerald-400"></i>
+            <span class="font-bold text-white text-[11px]">SHIPPER PORTAL</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-800">
+          
+          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+            <div class="font-mono text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+              <span>CURRENT LIVE DEMO CAPABILITIES</span>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-300 font-mono">
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Simulated commercial vehicles & corridor routes</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Simulated GPS breadcrumb telemetry updates</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Forward dot-product mathematical matching</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Interactive pan-India freight network map</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Role-based Business vs Driver Cockpit experience</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+            <div class="font-mono text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>PRODUCTION ARCHITECTURE ROADMAP</span>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-300 font-mono">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span>Direct driver mobile GPS streaming & OBD-II telemetry</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span>Persistent multi-tenant PostgreSQL / PostGIS database</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span>Carrier fleet management & automated dispatch APIs</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span>Live shipment event webhooks and audit streams</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span>Automated payment escrow and tariff settlements</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- SECTION 10 — FINAL CTA                               -->
+  <!-- ==================================================== -->
+  <section class="py-28 relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border-t border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-8">
+      
+      <span class="text-xs font-mono uppercase tracking-widest font-bold text-emerald-400">
+        Join the Next Era of Indian Freight
+      </span>
+
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+        The Road Already Has Capacity. <br />
+        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          Let's Use It Better.
+        </span>
+      </h2>
+
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
+        Explore a smarter way to discover and utilize freight capacity already moving across national highway corridors.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a
+          href="https://roadside-logistics.vercel.app"
+          target="_blank"
+          class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-base shadow-xl shadow-emerald-500/25 active:scale-95 transition flex items-center justify-center gap-3 font-mono uppercase tracking-wider"
+        >
+          <span>Explore RoadSide</span>
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </a>
+
+        <a
+          href="https://roadside-logistics.vercel.app"
+          target="_blank"
+          class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-800 text-base font-semibold transition"
+        >
+          Create Account
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================================================== -->
+  <!-- FOOTER                                               -->
+  <!-- ==================================================== -->
+  <footer class="bg-slate-950 border-t border-slate-900 py-12 text-xs font-mono text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="truck" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <span class="font-bold text-slate-200">ROADSIDE LOGISTICS</span>
+            <p class="text-[10px] text-slate-500 font-sans">Real-time Freight Capacity Network</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-6 text-slate-400">
+          <a href="#product" class="hover:text-emerald-400 transition">Product</a>
+          <a href="#how-it-works" class="hover:text-emerald-400 transition">How It Works</a>
+          <a href="#intelligence" class="hover:text-emerald-400 transition">Network</a>
+          <a href="https://roadside-logistics.vercel.app" target="_blank" class="hover:text-emerald-400 transition">Sign In</a>
+          <a href="https://github.com" target="_blank" rel="noreferrer" class="hover:text-emerald-400 transition flex items-center gap-1">
+            <span>GitHub</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <div class="text-slate-600 text-[11px]">
+          © 2026 RoadSide Logistics. All rights reserved.
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
