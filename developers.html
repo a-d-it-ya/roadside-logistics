@@ -177,16 +177,56 @@
 
   </section>
 
-  <!-- FOOTER -->
-  <footer class="bg-void border-t border-white/[0.06] py-12 text-xs font-mono text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+  <!-- ==================================================== -->
+  <!-- INTERACTIVE SCROLL-TRIGGERED TRUCK FOOTER            -->
+  <!-- ==================================================== -->
+  <footer id="interactiveFooter" class="bg-void border-t border-white/[0.08] pt-16 pb-12 relative overflow-hidden">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <div class="text-center mb-4">
+        <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500">
+          • CORRIDOR TELEMETRY HIGHWAY •
+        </span>
+      </div>
+
+      <div id="highwayLane" class="relative h-24 sm:h-32 border-b-2 border-dashed border-emerald-500/30 flex items-center overflow-hidden bg-slate-950/40 rounded-2xl px-4">
+        <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
+
+        <div id="textRevealTrack" class="font-display font-black text-2xl sm:text-5xl md:text-6xl uppercase tracking-wider flex items-center select-none z-10 w-full justify-between"></div>
+
+        <div id="footerTruck" class="absolute left-0 bottom-1.5 z-20 pointer-events-none flex items-center will-change-transform" style="transform: translateX(-100px);">
+          <div class="relative flex items-center">
+            <div class="absolute -right-16 top-0 w-24 h-8 bg-gradient-to-r from-emerald-400/50 via-teal-300/20 to-transparent blur-[6px] -skew-x-12 pointer-events-none"></div>
+            <div class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-[0_0_30px_rgba(16,185,129,0.9)] flex items-center gap-1.5 font-mono font-bold text-xs border border-white/40">
+              <i data-lucide="truck" class="w-5 h-5 text-slate-950 stroke-[2.5]"></i>
+              <span class="text-[10px] font-black tracking-tighter">RDS-TRUCK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-2">
+        <button 
+          onclick="triggerTruckDrive()" 
+          class="text-[10px] font-mono text-slate-500 hover:text-emerald-400 flex items-center gap-1 transition"
+          title="Replay Highway Truck Drive"
+        >
+          <i data-lucide="play" class="w-3 h-3"></i>
+          <span>Replay Drive</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation & Copyright -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 pt-6 border-t border-white/[0.06] text-xs font-mono text-slate-500">
       <div class="flex items-center gap-3">
         <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
           <i data-lucide="truck" class="w-4 h-4"></i>
         </div>
         <span class="font-bold text-slate-200">ROADSIDE LOGISTICS</span>
       </div>
-      <div class="flex flex-wrap gap-6 text-slate-400">
+
+      <div class="flex flex-wrap justify-center gap-6 text-slate-400">
         <a href="index.html" class="hover:text-emerald-400 transition">Network OS</a>
         <a href="how-it-works.html" class="hover:text-emerald-400 transition">How It Works</a>
         <a href="vector-engine.html" class="hover:text-emerald-400 transition">Vector Engine</a>
@@ -194,10 +234,89 @@
         <a href="arbitrage.html" class="hover:text-emerald-400 transition">Arbitrage</a>
         <a href="developers.html" class="hover:text-emerald-400 transition">API Docs</a>
       </div>
-      <div class="text-slate-600">© 2026 RoadSide Logistics.</div>
+
+      <div class="text-slate-500 text-center md:text-right">
+        © 2026 RoadSide Logistics. Engineered for Zero Empty Miles.
+      </div>
     </div>
   </footer>
 
-  <script>lucide.createIcons();</script>
+  <script>
+    lucide.createIcons();
+
+    const brandName = "ROADSIDE LOGISTICS";
+    const track = document.getElementById('textRevealTrack');
+    const truck = document.getElementById('footerTruck');
+    const highwayLane = document.getElementById('highwayLane');
+    let hasDriven = false;
+    let letterElements = [];
+
+    if (track) {
+      track.innerHTML = '';
+      for (let i = 0; i < brandName.length; i++) {
+        const char = brandName[i];
+        const span = document.createElement('span');
+        span.innerText = char === ' ' ? '\u00A0\u00A0' : char;
+        span.className = 'transition-all duration-300 transform opacity-10 text-slate-700 blur-[2px] inline-block font-mono';
+        span.id = `reveal-char-${i}`;
+        track.appendChild(span);
+        letterElements.push(span);
+      }
+    }
+
+    function triggerTruckDrive() {
+      if (!truck || !highwayLane) return;
+      const trackWidth = highwayLane.offsetWidth;
+      let start = null;
+      const duration = 2800;
+
+      letterElements.forEach(el => {
+        el.className = 'transition-all duration-300 transform opacity-10 text-slate-700 blur-[2px] inline-block font-mono';
+      });
+
+      function animateDrive(timestamp) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+        const currentX = (trackWidth + 80) * ease - 40;
+
+        truck.style.transform = `translateX(${currentX}px)`;
+
+        letterElements.forEach((el) => {
+          const elRect = el.getBoundingClientRect();
+          const laneRect = highwayLane.getBoundingClientRect();
+          const elRelativeX = elRect.left - laneRect.left + 15;
+
+          if (currentX >= elRelativeX) {
+            el.className = 'transition-all duration-300 transform opacity-100 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 font-extrabold blur-0 scale-105 inline-block font-display drop-shadow-[0_0_15px_rgba(16,185,129,0.8)]';
+          }
+        });
+
+        if (progress < 1) {
+          requestAnimationFrame(animateDrive);
+        } else {
+          truck.style.transform = `translateX(${trackWidth - 90}px)`;
+        }
+      }
+
+      requestAnimationFrame(animateDrive);
+    }
+
+    const footerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasDriven) {
+          hasDriven = true;
+          setTimeout(() => {
+            triggerTruckDrive();
+          }, 300);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    const footerSection = document.getElementById('interactiveFooter');
+    if (footerSection) {
+      footerObserver.observe(footerSection);
+    }
+  </script>
 </body>
 </html>
