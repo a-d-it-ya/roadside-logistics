@@ -29,11 +29,6 @@
           },
           colors: {
             void: '#030712',
-            cyber: {
-              400: '#2dd4bf',
-              500: '#14b8a6',
-              600: '#0d9488',
-            }
           }
         }
       }
@@ -98,9 +93,7 @@
   <div class="fixed top-0 left-1/4 w-[600px] h-[400px] bg-emerald-500/10 blur-[140px] pointer-events-none -z-10 rounded-full"></div>
   <div class="fixed top-1/3 right-10 w-[500px] h-[500px] bg-cyan-500/10 blur-[160px] pointer-events-none -z-10 rounded-full"></div>
 
-  <!-- ==================================================== -->
-  <!-- TOP NAVIGATION                                       -->
-  <!-- ==================================================== -->
+  <!-- TOP NAVIGATION -->
   <header class="sticky top-0 z-50 bg-void/85 backdrop-blur-xl border-b border-white/[0.08]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
@@ -145,9 +138,7 @@
     </div>
   </header>
 
-  <!-- ==================================================== -->
-  <!-- HERO SECTION                                         -->
-  <!-- ==================================================== -->
+  <!-- HERO SECTION WITH HIGH-IMPACT HIGHWAY VISUAL -->
   <section class="relative pt-16 pb-24 lg:pt-24 lg:pb-36 overflow-hidden cyber-grid">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
@@ -214,10 +205,20 @@
 
         </div>
 
-        <!-- Right 3D Futuristic Cockpit HUD Card -->
+        <!-- Right 3D Futuristic Cockpit HUD with High-Tech Image Background -->
         <div class="lg:col-span-5 relative perspective-1000">
-          <div class="tilt-card relative rounded-3xl bg-slate-950/90 border border-emerald-500/40 p-6 shadow-[0_0_50px_rgba(16,185,129,0.15)] backdrop-blur-2xl space-y-5">
+          <div class="tilt-card relative rounded-3xl bg-slate-950/90 border border-emerald-500/40 p-6 shadow-[0_0_50px_rgba(16,185,129,0.15)] backdrop-blur-2xl space-y-5 overflow-hidden">
             
+            <!-- Real Highway Image Background with Overlay -->
+            <div class="absolute inset-0 -z-10 opacity-20">
+              <img 
+                src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1000&q=80" 
+                alt="Highway freight network" 
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"></div>
+            </div>
+
             <div class="flex items-center justify-between border-b border-white/[0.08] pb-3 font-mono text-xs">
               <div class="flex items-center gap-2">
                 <div class="relative w-4 h-4 rounded-full border border-emerald-400 flex items-center justify-center overflow-hidden">
@@ -298,9 +299,7 @@
     </div>
   </section>
 
-  <!-- ==================================================== -->
-  <!-- 3D MULTI-PAGE SHOWCASE CARDS                        -->
-  <!-- ==================================================== -->
+  <!-- 3D MULTI-PAGE SHOWCASE CARDS WITH IMAGERY -->
   <section class="py-20 bg-void border-t border-white/[0.08]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
@@ -318,54 +317,72 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <!-- Page Card 1: How It Works -->
-        <a href="how-it-works.html" class="bento-card p-8 rounded-3xl space-y-5 block group">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <i data-lucide="layers" class="w-6 h-6"></i>
+        <!-- Page Card 1: How It Works with Image -->
+        <a href="how-it-works.html" class="bento-card rounded-3xl overflow-hidden block group">
+          <div class="h-44 overflow-hidden relative">
+            <img 
+              src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" 
+              alt="Automated Cross-Dock Hub" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-4 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/90 text-emerald-300 border border-emerald-500/40 font-mono text-[10px]">
+              <span>4-STEP PIPELINE</span>
+            </div>
           </div>
-          <h3 class="text-2xl font-bold font-display text-white group-hover:text-emerald-400 transition-colors">
-            How It Works →
-          </h3>
-          <p class="text-sm text-slate-300 leading-relaxed font-sans">
-            Follow the 4-step workflow from cargo booking, vector match validation, smart hub dock transfer, to live GPS tracking.
-          </p>
-          <div class="pt-2 text-xs font-mono text-emerald-400 flex items-center gap-1 font-bold">
-            <span>Explore 4-step process</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </div>
-        </a>
-
-        <!-- Page Card 2: Vector Engine -->
-        <a href="vector-engine.html" class="bento-card p-8 rounded-3xl space-y-5 block group">
-          <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <i data-lucide="cpu" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-2xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
-            Vector Engine →
-          </h3>
-          <p class="text-sm text-slate-300 leading-relaxed font-sans">
-            Understand the mathematics of forward route dot products (D⃗ · H⃗ ≥ 0), zero-detour hubs, and rejected reverse matching.
-          </p>
-          <div class="pt-2 text-xs font-mono text-cyan-400 flex items-center gap-1 font-bold">
-            <span>Explore Vector Math</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="p-6 space-y-3">
+            <h3 class="text-xl font-bold font-display text-white group-hover:text-emerald-400 transition-colors">
+              How It Works →
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              Follow the journey from cargo booking, vector match validation, smart hub dock transfer, to live GPS tracking.
+            </p>
           </div>
         </a>
 
-        <!-- Page Card 3: For Businesses -->
-        <a href="for-businesses.html" class="bento-card p-8 rounded-3xl space-y-5 block group">
-          <div class="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <i data-lucide="building-2" class="w-6 h-6"></i>
+        <!-- Page Card 2: Vector Engine with Image -->
+        <a href="vector-engine.html" class="bento-card rounded-3xl overflow-hidden block group">
+          <div class="h-44 overflow-hidden relative">
+            <img 
+              src="https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80" 
+              alt="Vector Route Telemetry" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-4 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/90 text-cyan-300 border border-cyan-500/40 font-mono text-[10px]">
+              <span>MATHEMATICS OF CORRIDORS</span>
+            </div>
           </div>
-          <h3 class="text-2xl font-bold font-display text-white group-hover:text-teal-400 transition-colors">
-            For Businesses →
-          </h3>
-          <p class="text-sm text-slate-300 leading-relaxed font-sans">
-            Choose between Shared Capacity or Dedicated Vehicle procurement with enterprise SLA guarantees and working capital savings.
-          </p>
-          <div class="pt-2 text-xs font-mono text-teal-400 flex items-center gap-1 font-bold">
-            <span>View Enterprise Plans</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="p-6 space-y-3">
+            <h3 class="text-xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
+              Vector Engine →
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              Understand the mathematics of forward route dot products (D⃗ · H⃗ ≥ 0), zero-detour hubs, and rejected reverse matching.
+            </p>
+          </div>
+        </a>
+
+        <!-- Page Card 3: For Businesses with Image -->
+        <a href="for-businesses.html" class="bento-card rounded-3xl overflow-hidden block group">
+          <div class="h-44 overflow-hidden relative">
+            <img 
+              src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80" 
+              alt="Commercial Freight Fleet" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-4 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-950/90 text-teal-300 border border-teal-500/40 font-mono text-[10px]">
+              <span>ENTERPRISE SOLUTIONS</span>
+            </div>
+          </div>
+          <div class="p-6 space-y-3">
+            <h3 class="text-xl font-bold font-display text-white group-hover:text-teal-400 transition-colors">
+              For Businesses →
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              Choose between Shared Capacity or Dedicated Vehicle procurement with enterprise SLA guarantees and working capital savings.
+            </p>
           </div>
         </a>
 
@@ -374,9 +391,7 @@
     </div>
   </section>
 
-  <!-- ==================================================== -->
-  <!-- HIGH-CONVERSION CTA FOOTER                           -->
-  <!-- ==================================================== -->
+  <!-- HIGH-CONVERSION CTA FOOTER -->
   <section class="py-24 relative overflow-hidden bg-gradient-to-b from-void via-slate-950 to-void border-t border-white/[0.08]">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-8">
       
@@ -409,9 +424,7 @@
     </div>
   </section>
 
-  <!-- ==================================================== -->
-  <!-- FOOTER                                               -->
-  <!-- ==================================================== -->
+  <!-- FOOTER -->
   <footer class="bg-void border-t border-white/[0.06] py-12 text-xs font-mono text-slate-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
       
